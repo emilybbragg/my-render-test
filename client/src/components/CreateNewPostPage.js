@@ -43,7 +43,10 @@ function CreateNewPostPage({
       method: "POST",
       body: formData
     })
-    window.location.href = "/posts"
+      .then((r) => {
+        console.log(r)
+        // window.location.href = "/posts"
+      })
   }
 
   // function handlePostSubmit(e) {
