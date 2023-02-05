@@ -57,3 +57,4 @@ gem "dotenv-rails", "~> 2.8"
 # gem "jsonapi-serializer", "~> 2.2"
 gem "image_processing", ">= 1.2"
 gem "jsonapi-serializer", "~> 2.2"
+gem 'figaro'
