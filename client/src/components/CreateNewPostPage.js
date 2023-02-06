@@ -26,7 +26,7 @@ function CreateNewPostPage() {
   useEffect(() => {
     setSelectedImage(null)
     setSelectedImagePreview("")
-    fetch("/categories")
+    fetch("/api/categories")
       .then((r) => r.json())
       .then(categories => {
         if (categories && categories.length > 0) {
@@ -52,7 +52,7 @@ function CreateNewPostPage() {
     formData.append('caption', postCaption)
     formData.append('category_id', selectedCategory)
     console.log(formData)
-    fetch("/posts", {
+    fetch("/api/posts", {
       method: "POST",
       body: formData
     })

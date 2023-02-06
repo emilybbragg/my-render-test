@@ -10,7 +10,7 @@ function EditPost({ handleUpdatePost, setIsEditing }) {
 
   function handlePostUpdateSubmit(e) {
     e.preventDefault()
-    fetch(`/posts/${postId}`, {
+    fetch(`/api/posts/${postId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
