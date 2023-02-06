@@ -12,7 +12,6 @@ import plants from "../plants.jpeg"
 
 
 function LoginPage() {
-
   const { user, setUser } = useContext(UserContext)
   const navigate = useNavigate()
 
@@ -34,11 +33,8 @@ function LoginPage() {
         style={{
           backgroundImage: `url(${plants})`,
           height: '750px'
-          // backgroundRepeat: 'no-repeat',
-          // backgroundSize: 'cover',
         }} >
-        <div className="flex flex-col items-center justify-center h-[700px] w-[500px] p-3
-        bg-green-50 opacity-90 border-4 border-green-800 rounded-lg">
+        <div className="flex flex-col items-center justify-center h-[700px] w-[500px] p-3 bg-green-50 opacity-90 border-4 border-green-800 rounded-lg">
           <div className="flex flex-col items-center">
             <span className="font-serif font-semibold text-xl text-green-800">Plant Parenthood</span>
             <br />
@@ -51,10 +47,7 @@ function LoginPage() {
               <Divider />
               <div className="flex flex-col items-center justify-center gap-3">
                 <span>Don't have an account?</span>
-                <Button
-                  className="hover:border-2 !border-green-800"
-                  onClick={() => setShowLogin(false)}
-                >
+                <Button className="hover:border-2 !border-green-800" onClick={() => setShowLogin(false)}>
                   Sign Up
                 </Button>
               </div>
@@ -65,10 +58,7 @@ function LoginPage() {
               <Divider />
               <div className="flex flex-col items-center justify-center gap-3">
                 <span>Already have an account?</span>
-                <Button
-                  className="hover:border-2 !border-green-800"
-                  onClick={() => setShowLogin(true)}
-                >
+                <Button className="hover:border-2 !border-green-800" onClick={() => setShowLogin(true)}>
                   Login
                 </Button>
               </div>

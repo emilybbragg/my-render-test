@@ -4,8 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from "../UserContext"
 
 
-function NavBar({ }) {
-
+function NavBar() {
   const { user, setUser } = useContext(UserContext)
   const navigate = useNavigate()
 
@@ -14,12 +13,6 @@ function NavBar({ }) {
       navigate("/")
     }
   }, [])
-
-  // useEffect(() => {
-  //   console.groupCollapsed("User from NavBar")
-  //   console.log(user)
-  //   console.groupEnd()
-  // }, [user])
 
   function handleLogoutClick() {
     fetch("/logout", { method: "DELETE" }).then((r) => {

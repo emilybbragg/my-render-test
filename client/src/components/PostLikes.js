@@ -6,14 +6,18 @@ import Icon from "./Icons"
 
 
 function PostLikes({
-  setPostLikes,
+  post,
   postLikes,
-  post
+  setPostLikes
 }) {
-
   const { user, setUser } = useContext(UserContext)
+
   const [liked, setLiked] = useState(postLikes?.find((like) => like?.user_id == user?.id))
   const [errors, setErrors] = useState([])
+
+  const pluralize = (count, noun, suffix = 's') => {
+    return `${count} ${noun}${count !== 1 ? suffix : ''}`
+  }
 
   function handlePostLikeClick() {
     const likeData = {
@@ -74,10 +78,10 @@ function PostLikes({
       <button onClick={handleLikeButtonClick}>
         <Icon
           icon={liked ? "liked" : "unliked"}
-          className="h-4 w-4"
+          className="h-4 w-4 fill-red"
         />
       </button>
-      <span>{postLikes?.length || 0} likes</span>
+      <span>{pluralize(postLikes?.length || 0, 'like')}</span>
     </>
   )
 }

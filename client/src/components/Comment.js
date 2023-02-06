@@ -2,11 +2,7 @@
 import React, { useContext } from "react"
 import { UserContext } from "../UserContext"
 
-function Comment({
-  comment,
-  handleCommentDeleteClick
-}) {
-
+function Comment({ comment, handleCommentDeleteClick }) {
   const { user, setUser } = useContext(UserContext)
 
   return (

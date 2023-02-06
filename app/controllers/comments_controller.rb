@@ -12,13 +12,11 @@ class CommentsController < ApplicationController
   end
 
   def create
-      #   comment = @current_user.comments.create!(comment_params)
-    comment = Comment.create!(comment_params)
+    comment = @current_user.comments.create!(comment_params)
     render json: comment, status: :created
   end
 
   def destroy
-    # comment = @current_user.comments.find(params[:id])
     comment = Comment.find(params[:id])
     comment.destroy
     head :no_content
@@ -29,5 +27,5 @@ class CommentsController < ApplicationController
   def comment_params
     params.permit(:description, :user_id, :post_id)
   end
-  
+
 end

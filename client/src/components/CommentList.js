@@ -12,44 +12,43 @@ function CommentList({
   post,
   comments,
   setComments,
-  isAddingComment,
-  setIsAddingComment,
+  isShowingAllComments,
   setIsShowingAllComments
 }) {
   const { user, setUser } = useContext(UserContext)
-
   const [commentDescription, setCommentDescription] = useState("")
   const [errors, setErrors] = useState([])
 
   function handleCommentSubmit(e) {
     e.preventDefault()
-    const commentData = {
-      description: commentDescription,
-      user_id: user.id,
-      post_id: post.id,
-    }
-    fetch(`/comments`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(commentData),
-    })
-      .then((r) => {
-        if (r.ok) {
-          r.json().then((newComment) => {
-            const allCommentsWithNew = [...comments, newComment]
-            setComments(allCommentsWithNew)
-            setCommentDescription("")
-            setIsAddingComment(false)
-            setIsShowingAllComments(true)
-          })
-        } else {
-          r.json().then((err) => {
-            setErrors([err?.error])
-          })
-        }
+    if (commentDescription) {
+      const commentData = {
+        description: commentDescription,
+        user_id: user.id,
+        post_id: post.id,
+      }
+      fetch(`/comments`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(commentData),
       })
+        .then((r) => {
+          if (r.ok) {
+            r.json().then((newComment) => {
+              const allCommentsWithNew = [...comments, newComment]
+              setComments(allCommentsWithNew)
+              setCommentDescription("")
+              setIsShowingAllComments(true)
+            })
+          } else {
+            r.json().then((err) => {
+              setErrors([err?.error])
+            })
+          }
+        })
+    }
   }
 
   function handleCommentDeleteClick(comment) {
@@ -71,7 +70,7 @@ function CommentList({
   return (
     <>
       <div className="flex flex-col items-start justify-between">
-        <div className="flex w-[500px] h-fit flex-col items-start gap-2">
+        <ul className="flex flex-col items-start w-[500px] h-[300px] gap-2 overflow-y-auto">
           {comments && comments?.length > 0 ? (comments?.map((comment) =>
             <>
               <Comment
@@ -84,13 +83,11 @@ function CommentList({
             </>
           )
           ) :
-            <span className="font-serif font-semibold">This post has no comments yet!</span>
+            <span className="flex items-center font-serif font-semibold text-lg">This post has no comments yet!</span>
           }
-        </div>
+        </ul>
 
-
-
-        {isAddingComment ?
+        {isShowingAllComments ?
           <form className="flex items-center gap-2" onSubmit={handleCommentSubmit} type="submit">
             <br></br>
             <FormField>
@@ -102,15 +99,9 @@ function CommentList({
                 value={commentDescription}
                 onChange={(e) => setCommentDescription(e.target.value)} />
             </FormField>
-
             <FormField>
-              <Button
-                type="button"
-                onClick={handleCommentSubmit}
-              >
-                Submit</Button>
+              <Button type="button" onClick={handleCommentSubmit}>Submit</Button>
             </FormField>
-
             <FormField>
               <div className="flex flex-col items-center justify-center text-red-700">
                 {errors?.map((err) => (

@@ -7,9 +7,7 @@ import Input from "../styles/Input.js"
 import Button from "../styles/Button.js"
 
 
-function LoginForm({
-
-}) {
+function LoginForm() {
   const { user, setUser } = useContext(UserContext)
 
   const [username, setUsername] = useState("")

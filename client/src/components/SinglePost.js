@@ -16,10 +16,9 @@ function SinglePost({
   handlePostDeleteClick,
   isEditing,
   setIsEditing,
-  setIsAddingComment,
+  isShowingAllComments,
   setIsShowingAllComments
 }) {
-
   const { user, setUser } = useContext(UserContext)
   const navigate = useNavigate()
 
@@ -27,17 +26,15 @@ function SinglePost({
     navigate(`/users/${userId}`)
   }
 
-  console.log(post)
-
   return (
     <>
       <div className="flex flex-col">
         <ul className="flex flex-col">
           <div className="flex flex-col items-center justify-between h-[500px] w-[500px] bg-green-800 text-black border-4 border-white rounded-t">
-            <img src={post?.image} />
+            <img className="h-[500px] w-[500px] object-cover" src={post?.image} />
           </div>
           <div className={`flex flex-col p-3 h-fit w-[500px] gap-2 bg-white border-2 border-white text-black
-            ${isEditing && post.user?.id == user.id ? "rounded-none" : post.user?.id == user.id ? "rounded-none" : "rounded-b"}
+            ${isEditing && post?.user?.id == user?.id ? "rounded-none" : post?.user?.id == user?.id ? "rounded-none" : "rounded-b"}
           `}>
             <div className="flex row items-start gap-2">
               <div className="flex items-center pt-[4px] gap-2">
@@ -51,15 +48,20 @@ function SinglePost({
             </div>
             <div className="flex items-start gap-2">
               <div className="flex items-center pt-[4px]">
-                <button onClick={() => setIsAddingComment(true)}>
+                <button onClick={() => setIsShowingAllComments(true)}>
                   <Icon
                     icon="comment"
                     className="h-4 w-4" />
                 </button>
               </div>
-              <button onClick={() => setIsShowingAllComments(true)}>
-                View all comments
-              </button>
+              {!isShowingAllComments ?
+                <button onClick={() => setIsShowingAllComments(true)}>
+                  View all comments
+                </button> :
+                <button onClick={() => setIsShowingAllComments(false)}>
+                  Hide all comments
+                </button>
+              }
             </div>
             <div className="flex gap-2">
               <button className="flex items-start font-bold" onClick={() => navigateToProfile(post?.user?.id)}>
@@ -85,12 +87,10 @@ function SinglePost({
         {!isEditing && post?.user?.id == user.id ? (
           <>
             <div className="flex justify-between bg-white rounded-b px-3 pb-3">
-              <button className="" onClick={() => setIsEditing((isEditing) => !isEditing)}>
+              <button onClick={() => setIsEditing((isEditing) => !isEditing)}>
                 <span role="img" aria-label="edit">Edit Post ✏️</span>
               </button>
-              <button className=""
-                onClick={() => handlePostDeleteClick(post)}
-              >
+              <button onClick={() => handlePostDeleteClick(post)}>
                 <span role="img" aria-label="delete">Delete Post 🗑</span>
               </button>
             </div>

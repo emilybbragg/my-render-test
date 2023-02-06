@@ -3,12 +3,8 @@ import React, { useState } from "react"
 import { useParams } from "react-router-dom"
 
 
-function EditPost({
-  handleUpdatePost,
-  setIsEditing
-}) {
+function EditPost({ handleUpdatePost, setIsEditing }) {
   const { postId } = useParams()
-
   const [caption, setCaption] = useState("")
   const [updatedCaption, setUpdatedCaption] = useState("")
 
@@ -19,9 +15,7 @@ function EditPost({
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        caption: updatedCaption
-      }),
+      body: JSON.stringify({ caption: updatedCaption }),
     })
       .then((r) => r.json())
       .then((updatedPost) => {
@@ -44,7 +38,7 @@ function EditPost({
           value={updatedCaption}
           onChange={handleCaptionChange}
         />
-        <button className="" type="submit" value="Save">Save</button>
+        <button type="submit" value="Save">Save</button>
       </div>
     </form>
   )

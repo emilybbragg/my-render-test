@@ -6,14 +6,13 @@ import FormField from "../styles/FormField"
 import Button from "../styles/Button.js"
 import Input from "../styles/Input.js"
 
-function SignupPage({ bio }) {
-
+function SignupPage() {
   const { user, setUser } = useContext(UserContext)
 
   const [username, setUsername] = useState("")
+  const [name, setName] = useState("")
   const [password, setPassword] = useState("")
   const [passwordConfirmation, setPasswordConfirmation] = useState("")
-  const [name, setName] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState([])
 
@@ -30,8 +29,7 @@ function SignupPage({ bio }) {
         username,
         password,
         password_confirmation: passwordConfirmation,
-        name,
-        bio
+        name
       }),
     }).then((r) => {
       setIsLoading(false);

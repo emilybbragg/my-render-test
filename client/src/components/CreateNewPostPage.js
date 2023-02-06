@@ -7,21 +7,25 @@ import Button from "../styles/Button.js"
 import plant from "../plant.jpeg"
 
 
-function CreateNewPostPage({
-  selectedImage,
-  setSelectedImage
-}) {
-
+function CreateNewPostPage() {
   const { user, setUser } = useContext(UserContext)
   const navigate = useNavigate()
   const imageUpload = useRef()
 
   const [postCaption, setPostCaption] = useState("")
-  const [errors, setErrors] = useState([])
   const [categories, setCategories] = useState([])
   const [selectedCategory, setSelectedCategory] = useState(null)
+  const [selectedImage, setSelectedImage] = useState(null)
+  const [selectedImagePreview, setSelectedImagePreview] = useState("")
+  const [errors, setErrors] = useState([])
+
+  const navigateToHome = () => {
+    navigate("/posts")
+  }
 
   useEffect(() => {
+    setSelectedImage(null)
+    setSelectedImagePreview("")
     fetch("/categories")
       .then((r) => r.json())
       .then(categories => {
@@ -30,6 +34,15 @@ function CreateNewPostPage({
         }
       })
   }, [])
+
+  useEffect(() => {
+    if (selectedImage) {
+      setSelectedImagePreview(URL.createObjectURL(selectedImage))
+    }
+    else {
+      setSelectedImagePreview("")
+    }
+  }, [selectedImage])
 
   function handlePostSubmit(e) {
     e.preventDefault();
@@ -45,42 +58,10 @@ function CreateNewPostPage({
     })
       .then((r) => {
         console.log(r)
+        navigateToHome()
         // window.location.href = "/posts"
       })
   }
-
-  // function handlePostSubmit(e) {
-  //   e.preventDefault()
-  //   setErrors([])
-  //   const postData = {
-  //     caption: postCaption,
-  //     user_id: user?.id,
-  //     category_id: selectedCategory
-  //   }
-  //   fetch("/posts", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(postData),
-  //   })
-  //     .then((r) => {
-  //       if (r.ok) {
-  //         r.json().then((newPost) => {
-  //           console.log(newPost)
-  //           const allPostsWithNew = [...posts, newPost]
-  //           setPosts(allPostsWithNew);
-  //           // setSelectedImage(null)
-  //           setPostCaption("")
-  //           setSelectedCategory([])
-  //           navigateToHome()
-  //         })
-  //       }
-  //       else {
-  //         r.json().then((err) => setErrors[err.errors])
-  //       }
-  //     })
-  // }
 
   return (
     <div className="flex flex-col items-center pt-[50px]"
@@ -91,14 +72,19 @@ function CreateNewPostPage({
         height: '100vh'
       }}
     >
-      <div className="flex flex-col items-center justify-center h-[600px] w-[500px] rounded-b border-2 border-white bg-white">
+      <div className="flex flex-col items-center justify-center h-[600px] w-[500px] rounded border-2 border-white bg-white">
         <form className="flex flex-col items-center justify-between w-full px-4 h-fit gap-10" onSubmit={handlePostSubmit}>
           <div className="flex items-center justify-center h-[300px] w-full px-4 border-2 rounded-sm border-black">
-            <input type="file"
-              onChange={e => setSelectedImage(e.target.files[0])}
+            <input
+              type="file"
+              onChange={(e) => setSelectedImage(e.target.files[0])}
               ref={imageUpload}
               accept="image/png, image/jpeg"
             />
+            {selectedImagePreview ?
+              <img className="h-[300px] w-[300px] object-cover" src={selectedImagePreview || ""} /> :
+              <div className="h-[300px] w-[300px]"></div>
+            }
           </div>
           <div className="grid grid-cols-6 gap-1 h-[200px] w-full bg-green-800 opacity-40 rounded">
             <div className="flex items-center justify-center pt-8 pl-8 col-span-3">
@@ -119,10 +105,7 @@ function CreateNewPostPage({
               >
                 <option value="default">Select a Category</option>
                 {categories?.map((category) => (
-                  <option
-                    value={category?.id}
-                    name={category?.name}
-                  >
+                  <option value={category?.id} name={category?.name}>
                     {category?.name}
                   </option>
                 ))}
@@ -131,9 +114,7 @@ function CreateNewPostPage({
             </div>
             <div>
               {errors?.map((err) => (
-                <ul key={err}
-                  className=""
-                >
+                <ul key={err} className="">
                   Error: {err}
                 </ul>
               ))}

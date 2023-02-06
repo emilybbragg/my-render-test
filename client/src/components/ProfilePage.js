@@ -9,17 +9,16 @@ import plant from "../plant.jpeg"
 import Button from "../styles/Button.js"
 
 
-function ProfilePage({ bio }) {
+function ProfilePage({ }) {
   const [user, setUser] = useState(null)
   const { userId } = useParams()
   const navigate = useNavigate()
 
-  const [isEditing, setIsEditing] = useState(false)
-  const [selectedCategory, setSelectedCategory] = useState(null)
+  const [bio, setBio] = useState("")
   const [categories, setCategories] = useState([])
+  const [selectedCategory, setSelectedCategory] = useState(null)
   const [filteredPosts, setFilteredPosts] = useState([])
-  // const [updatedBio, setUpdatedBio] = useState("")
-  // const [currentUserBio, setCurrentUserBio] = useState(user?.bio)
+  const [isEditing, setIsEditing] = useState(false)
 
   useEffect(() => {
     fetch("/categories")
@@ -43,6 +42,7 @@ function ProfilePage({ bio }) {
 
   useEffect(() => {
     setFilteredPosts(user?.posts?.reverse())
+    setBio(user?.bio)
   }, [user])
 
   useEffect(() => {
@@ -55,25 +55,19 @@ function ProfilePage({ bio }) {
     }
   }, [selectedCategory])
 
-  //UPDATING USER BIO
-  // function handleUpdateUserRequest() {
-  //   fetch(`/users/${userId}`, {
-  //     method: "PATCH",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ bio: updatedBio }),
-  //   })
-  //     .then((r) => r.json())
-  //     .then((updatedUserBio) => {
-  //       handleUpdateUser(updatedUserBio)
-  //     })
-  // }
-
-  // function handleUpdateUser(updatedUserBio) {
-  //   setCurrentUserBio(updatedUserBio)
-  //   setIsEditing(false)
-  // }
+  function handleUpdateUserRequest() {
+    fetch(`/users/${userId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ bio }),
+    })
+      .then((r) => r.json())
+      .then((updatedUser) => {
+        setIsEditing(false)
+      })
+  }
 
   return (
     <>
@@ -81,24 +75,28 @@ function ProfilePage({ bio }) {
         style={{
           backgroundImage: `url(${plant})`,
           backgroundRepeat: 'repeat-y',
-          backgroundSize: 'cover',
-          // height: '100vh'
+          backgroundSize: 'cover'
         }}
       >
         <div className="flex flex-col">
-          <div className="flex flex-col items-center justify-center h-[600px] w-[500px] rounded-b border-2 border-white bg-white shrink-0">
-            <div className="flex flex-col items-center justify-center h-fit min-h-[200px] w-[450px] bg-green-800 opacity-40 rounded items-center">
-              <div className="flex flex-col items-center justify-center w-full h-fit min-h-[200px]">
-                <span className="text-white text-lg font-bold">
-                  {user?.name} (@{user?.username})
-                </span>
-                <hr className="w-[20rem] h-1 mx-auto my-4 bg-white border-0 rounded" />
+          <div className="flex flex-col items-center justify-center h-[600px] w-[500px] rounded border-2 border-white bg-white shrink-0">
+            <div className="flex flex-col items-center justify-center h-[500px] w-[450px] bg-green-800 opacity-40 rounded items-center">
+              <div className="flex flex-col items-center justify-center w-full h-fit min-h-[200px] gap-3">
+                <div className="flex flex-col items-center gap-4">
+                  <span className="text-white text-4xl font-bold">
+                    {user?.name}
+                  </span>
+                  <span className="text-white text-3xl font-bold">
+                    @{user?.username}
+                  </span>
+                  <hr className="w-[20rem] h-1 mx-auto my-4 bg-white border-0 rounded" />
+                </div>
                 {isEditing ?
                   <input
                     className="flex text-center rounded p-1 h-[100px] w-[300px] overflow-auto"
                     placeholder="Add Your Bio Here!"
-                  // value={bio}
-                  // onChange={(e) => setCurrentUserBio(e.target.value)}
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
                   /> :
                   bio ?
                     <span className="flex text-center">{bio}</span> :
@@ -107,11 +105,7 @@ function ProfilePage({ bio }) {
               </div>
               <div className="flex p-3">
                 {isEditing ?
-                  <Button
-                  // onClick={handleUpdateUserRequest}
-                  >
-                    Save
-                  </Button> :
+                  <Button onClick={handleUpdateUserRequest}>Save</Button> :
                   <Button onClick={() => setIsEditing((isEditing) => !isEditing)}>Edit</Button>
                 }
               </div>
@@ -144,8 +138,8 @@ function ProfilePage({ bio }) {
               </>
             </select>
           </div>
-          <div className="flex justify-between p-10 gap-[10rem] w-fit overflow-y-auto h-[800px]">
-            <ul className="flex flex-wrap gap-[4rem] rounded pl-[80px]">
+          <div className="flex min-w-[300px] p-10 gap-[10rem] w-fit overflow-y-auto h-[800px]">
+            <ul className="flex flex-wrap gap-[4rem] rounded pl-[80px] h-fit">
               {filteredPosts?.length > 0 ? (filteredPosts?.map((post) => (
                 <>
                   <Post

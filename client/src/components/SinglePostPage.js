@@ -10,12 +10,7 @@ import CommentList from "./CommentList"
 import plant from "../plant.jpeg"
 
 
-function SinglePostPage({
-  setPosts,
-  selectedImage,
-  setSelectedImage
-}) {
-
+function SinglePostPage({ setPosts }) {
   const { user, setUser } = useContext(UserContext)
   const navigate = useNavigate()
   const { postId } = useParams()
@@ -23,13 +18,20 @@ function SinglePostPage({
   const [currentPost, setCurrentPost] = useState({})
   const [postLikes, setPostLikes] = useState([])
   const [comments, setComments] = useState([])
-  const [isAddingComment, setIsAddingComment] = useState(false)
   const [isShowingAllComments, setIsShowingAllComments] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
 
   const navigateToHome = () => {
     navigate("/posts")
   }
+
+  useEffect(() => {
+    fetch(`/posts/${postId}`)
+      .then((r) => r.json())
+      .then((p) => {
+        setCurrentPost(p)
+      })
+  }, [postId])
 
   useEffect(() => {
     fetch(`/posts/${postId}/likes`)
@@ -44,14 +46,6 @@ function SinglePostPage({
       .then((r) => r.json())
       .then((comments) => {
         setComments(comments)
-      })
-  }, [postId])
-
-  useEffect(() => {
-    fetch(`/posts/${postId}`)
-      .then((r) => r.json())
-      .then((p) => {
-        setCurrentPost(p)
       })
   }, [postId])
 
@@ -83,8 +77,7 @@ function SinglePostPage({
         style={{
           backgroundImage: `url(${plant})`,
           backgroundRepeat: 'repeat-y',
-          backgroundSize: 'cover',
-          // height: '100vh'
+          backgroundSize: 'cover'
         }}
       >
         <SinglePost
@@ -97,27 +90,23 @@ function SinglePostPage({
           setIsEditing={setIsEditing}
           comments={comments}
           setComments={setComments}
-          setIsAddingComment={setIsAddingComment}
           setIsShowingAllComments={setIsShowingAllComments}
           isShowingAllComments={isShowingAllComments}
           postLikes={postLikes}
           setPostLikes={setPostLikes}
-          selectedImage={selectedImage}
-          setSelectedImage={setSelectedImage}
         />
-
-        {isShowingAllComments || isAddingComment ?
-          <div className="flex border-2 border-white rounded p-3 h-fit min-h-[500px] w-[550px] overflow-y-scroll">
+        {isShowingAllComments ?
+          <div className="flex border-2 border-white rounded p-3 h-fit min-h-[500px] min-w-[550px] w-fit overflow-y-auto">
             <CommentList
               post={currentPost}
               postId={postId}
               comments={comments}
               setComments={setComments}
-              isAddingComment={isAddingComment}
-              setIsAddingComment={setIsAddingComment}
+              isShowingAllComments={isShowingAllComments}
               setIsShowingAllComments={setIsShowingAllComments}
             />
-          </div> : ""}
+          </div> :
+          ""}
       </div>
     </>
   )

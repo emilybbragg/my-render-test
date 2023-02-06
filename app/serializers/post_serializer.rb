@@ -16,10 +16,4 @@ class PostSerializer < ActiveModel::Serializer
       rails_blob_path(object.image, only_path: true) if object.image.attached?
     end
 
-    # def poster_url
-    #   Rails.application.routes.url_helpers.url_for(poster) if poster.attached?
-    # end
-
-    # Rails.application.routes.url_helpers.rails_representation_url(object.original_file(resize: "300x300").processed, only_path: true)
-
 end
