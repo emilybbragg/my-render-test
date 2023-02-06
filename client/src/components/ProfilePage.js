@@ -1,5 +1,5 @@
 //packages
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 //components
@@ -7,13 +7,15 @@ import Post from "./Post"
 //styles
 import plant from "../plant.jpeg"
 import Button from "../styles/Button.js"
+import { UserContext } from "../UserContext"
 
 
-function ProfilePage({ }) {
-  const [user, setUser] = useState(null)
+function ProfilePage() {
+  const { loggedInUser } = useContext(UserContext)
   const { userId } = useParams()
   const navigate = useNavigate()
 
+  const [user, setUser] = useState(null)
   const [bio, setBio] = useState("")
   const [categories, setCategories] = useState([])
   const [selectedCategory, setSelectedCategory] = useState(null)
@@ -103,12 +105,14 @@ function ProfilePage({ }) {
                     <span className="text-white">Edit your profile to add your bio here!</span>
                 }
               </div>
-              <div className="flex p-3">
-                {isEditing ?
-                  <Button onClick={handleUpdateUserRequest}>Save</Button> :
-                  <Button onClick={() => setIsEditing((isEditing) => !isEditing)}>Edit</Button>
-                }
-              </div>
+              {loggedInUser?.id == user?.id ?
+                <div className="flex p-3">
+                  {isEditing ?
+                    <Button onClick={handleUpdateUserRequest}>Save</Button> :
+                    <Button onClick={() => setIsEditing((isEditing) => !isEditing)}>Edit</Button>
+                  }
+                </div> : null
+              }
             </div>
           </div>
         </div>

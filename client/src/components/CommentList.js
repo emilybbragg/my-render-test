@@ -44,7 +44,7 @@ function CommentList({
             })
           } else {
             r.json().then((err) => {
-              setErrors([err?.error])
+              setErrors((err?.error))
             })
           }
         })

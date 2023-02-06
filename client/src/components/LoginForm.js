@@ -65,11 +65,7 @@ function LoginForm() {
       <FormField>
         <div className="flex flex-col items-center justify-center text-red-700">
           {errors?.map((err) => (
-            <ul key={err}
-              className=""
-            >
-              Error: {err}
-            </ul>
+            <ul key={err}>Error: {err}</ul>
           ))}
         </div>
       </FormField>

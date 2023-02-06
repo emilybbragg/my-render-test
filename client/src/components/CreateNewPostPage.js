@@ -57,9 +57,11 @@ function CreateNewPostPage() {
       body: formData
     })
       .then((r) => {
-        console.log(r)
-        navigateToHome()
-        // window.location.href = "/posts"
+        if (r.ok) {
+          r.json().then((r) => { navigateToHome() })
+        } else {
+          r.json().then((err) => setErrors(err.errors))
+        }
       })
   }
 
@@ -72,21 +74,21 @@ function CreateNewPostPage() {
         height: '100vh'
       }}
     >
-      <div className="flex flex-col items-center justify-center h-[600px] w-[500px] rounded border-2 border-white bg-white">
-        <form className="flex flex-col items-center justify-between w-full px-4 h-fit gap-10" onSubmit={handlePostSubmit}>
-          <div className="flex items-center justify-center h-[300px] w-full px-4 border-2 rounded-sm border-black">
-            <input
-              type="file"
-              onChange={(e) => setSelectedImage(e.target.files[0])}
-              ref={imageUpload}
-              accept="image/png, image/jpeg"
-            />
-            {selectedImagePreview ?
-              <img className="h-[300px] w-[300px] object-cover" src={selectedImagePreview || ""} /> :
-              <div className="h-[300px] w-[300px]"></div>
+      <div className="flex flex-col items-center justify-center h-[600px] w-[550px] rounded border-2 border-white bg-white">
+        <form className="flex flex-col  w-fit px-4 h-fit gap-10" onSubmit={handlePostSubmit}>
+          <div className="flex items-center justify-center">
+            {!selectedImagePreview ?
+              <input
+                type="file"
+                onChange={(e) => setSelectedImage(e.target.files[0])}
+                ref={imageUpload}
+                accept="image/png, image/jpeg"
+                className="flex ml-[20px]"
+              /> :
+              <img className="h-[300px] w-[300px] object-cover border-2 rounded-sm border-black" src={selectedImagePreview || ""} />
             }
           </div>
-          <div className="grid grid-cols-6 gap-1 h-[200px] w-full bg-green-800 opacity-40 rounded">
+          <div className="grid grid-cols-6 gap-1 h-fit min-h-[200px] w-full bg-green-800 opacity-40 rounded">
             <div className="flex items-center justify-center pt-8 pl-8 col-span-3">
               <textarea
                 placeholder="Add your caption here!"
@@ -112,11 +114,9 @@ function CreateNewPostPage() {
               </select>
               <Button type="submit">Post</Button>
             </div>
-            <div>
+            <div className="flex flex-col items-center justify-center text-red font-bold gap-2 w-[500px]">
               {errors?.map((err) => (
-                <ul key={err} className="">
-                  Error: {err}
-                </ul>
+                <ul className="" key={err}>Error: {err}</ul>
               ))}
             </div>
           </div>
