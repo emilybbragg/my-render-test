@@ -3,13 +3,14 @@ import React, { useState, useEffect } from "react"
 import { UserContext } from "../UserContext"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 //components
-import LoginPage from "./LoginPage"
-import SignupPage from "./SignupPage"
 import Home from "./Home"
 import NavBar from "./NavBar"
-import SinglePostPage from "./SinglePostPage"
-import ProfilePage from "./ProfilePage"
-import CreateNewPostPage from "./CreateNewPostPage"
+//pages
+import LoginPage from "../pages/LoginPage"
+import SignupPage from "../pages/SignupPage"
+import SinglePostPage from "../pages/SinglePostPage"
+import ProfilePage from "../pages/ProfilePage"
+import CreateNewPostPage from "../pages/CreateNewPostPage"
 
 
 function App() {

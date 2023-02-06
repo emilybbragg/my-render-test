@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react"
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 //components
-import Post from "./Post"
+import Post from "../components/Post"
 //styles
 import plant from "../plant.jpeg"
 import Button from "../styles/Button.js"

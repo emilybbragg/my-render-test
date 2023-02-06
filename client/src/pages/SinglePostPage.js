@@ -4,8 +4,8 @@ import { UserContext } from "../UserContext"
 import { useNavigate } from "react-router-dom"
 import { useParams } from "react-router-dom"
 //components
-import SinglePost from './SinglePost'
-import CommentList from "./CommentList"
+import SinglePost from '../components/SinglePost'
+import CommentList from "../components/CommentList"
 //styles
 import plant from "../plant.jpeg"
 

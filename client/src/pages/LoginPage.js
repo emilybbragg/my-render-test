@@ -4,7 +4,7 @@ import { UserContext } from "../UserContext"
 import { useNavigate } from "react-router-dom"
 //components
 import SignupPage from "./SignupPage"
-import LoginForm from "./LoginForm"
+import LoginForm from "../components/LoginForm"
 //styles
 import styled from "styled-components"
 import Button from "../styles/Button.js"
