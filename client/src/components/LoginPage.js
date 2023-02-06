@@ -4,7 +4,7 @@ import { UserContext } from "../UserContext"
 import { useNavigate } from "react-router-dom"
 //components
 import SignupPage from "./SignupPage"
-import LoginForm from "../components/LoginForm"
+import LoginForm from "./LoginForm"
 //styles
 import styled from "styled-components"
 import Button from "../styles/Button.js"
@@ -20,7 +20,7 @@ function LoginPage() {
 
   useEffect(() => {
     if (user) {
-      navigate("/posts")
+      navigate("/home")
     }
     else {
       setIsLoading(false)

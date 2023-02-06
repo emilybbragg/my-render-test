@@ -4,8 +4,8 @@ import { UserContext } from "../UserContext"
 import { useNavigate } from "react-router-dom"
 import { useParams } from "react-router-dom"
 //components
-import SinglePost from '../components/SinglePost'
-import CommentList from "../components/CommentList"
+import SinglePost from './SinglePost'
+import CommentList from "./CommentList"
 //styles
 import plant from "../plant.jpeg"
 
@@ -22,7 +22,7 @@ function SinglePostPage({ setPosts }) {
   const [isEditing, setIsEditing] = useState(false)
 
   const navigateToHome = () => {
-    navigate("/posts")
+    navigate("/home")
   }
 
   useEffect(() => {

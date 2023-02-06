@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react"
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 //components
-import Post from "../components/Post"
+import Post from "./Post"
 //styles
 import plant from "../plant.jpeg"
 import Button from "../styles/Button.js"
@@ -38,11 +38,18 @@ function ProfilePage() {
         .then((r) => r.json())
         .then((user) => {
           setUser(user)
+          console.log(user)
+        })
+        .catch(e => {
+          console.log("User Error")
+          console.log(user)
         })
     }
   }, [userId])
 
   useEffect(() => {
+    console.log(user)
+    console.log(user?.posts)
     setFilteredPosts(user?.posts?.reverse())
     setBio(user?.bio)
   }, [user])
@@ -120,7 +127,7 @@ function ProfilePage() {
           <div className="flex w-full h-[80px] gap-8 items-center justify-center pl-[70px]">
             <button
               className="w-[175px] h-[50px] p-3 rounded bg-white text-green-800 opacity-60 hover:border-2 hover:border-green-800"
-              onClick={() => navigate("/-posts/newpost")}
+              onClick={() => navigate("/new-post")}
             >
               Create a New Post
             </button>

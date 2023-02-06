@@ -68,7 +68,7 @@ function Home({ posts, setPosts }) {
           <div className="flex items-center  w-full h-[80px] gap-8">
             <button
               className="w-[175px] h-[50px] p-3 rounded bg-white text-green-800 opacity-60 hover:border-2 hover:border-green-800"
-              onClick={() => navigate("/-posts/newpost")}
+              onClick={() => navigate("/new-post")}
             >
               Create a New Post
             </button>

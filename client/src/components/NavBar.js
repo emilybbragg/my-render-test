@@ -31,13 +31,13 @@ function NavBar() {
         </div>
         <div className="flex flex-row justify-end items-center gap-3">
           <Link
-            to="/-posts"
+            to="/home"
             className="text-white w-[100px] h-[40px] p-2 rounded-lg flex justify-center items-center hover:border-2 border-white"
           >
             Home
           </Link>
           <Link
-            to={`/users/${user?.id}`}
+            to={`/profile/${user?.id}`}
             className="text-white w-[100px] h-[40px] p-2 rounded-lg flex justify-center items-center hover:border-2 !border-white"
           >
             My Profile

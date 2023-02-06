@@ -7,11 +7,11 @@ function Post({ post }) {
   const navigate = useNavigate()
 
   const navigateToPost = (postId) => {
-    navigate(`/posts/${postId}`)
+    navigate(`/post-view/${postId}`)
   }
 
   const navigateToProfile = (userId) => {
-    navigate(`/users/${userId}`)
+    navigate(`/profile/${userId}`)
   }
 
   return (

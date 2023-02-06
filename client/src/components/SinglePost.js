@@ -23,7 +23,7 @@ function SinglePost({
   const navigate = useNavigate()
 
   const navigateToProfile = (userId) => {
-    navigate(`/users/${userId}`)
+    navigate(`/profile/${userId}`)
   }
 
   return (
