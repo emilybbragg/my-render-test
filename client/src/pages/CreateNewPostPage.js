@@ -20,7 +20,7 @@ function CreateNewPostPage() {
   const [errors, setErrors] = useState([])
 
   const navigateToHome = () => {
-    navigate("/posts")
+    navigate("/-posts")
   }
 
   useEffect(() => {

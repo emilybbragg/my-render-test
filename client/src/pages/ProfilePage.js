@@ -120,7 +120,7 @@ function ProfilePage() {
           <div className="flex w-full h-[80px] gap-8 items-center justify-center pl-[70px]">
             <button
               className="w-[175px] h-[50px] p-3 rounded bg-white text-green-800 opacity-60 hover:border-2 hover:border-green-800"
-              onClick={() => navigate("/posts/newpost")}
+              onClick={() => navigate("/-posts/newpost")}
             >
               Create a New Post
             </button>

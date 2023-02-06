@@ -41,9 +41,9 @@ function App() {
             <Routes>
               <Route path="/" element={<LoginPage />} />
               <Route path="/signup" element={<SignupPage />} />
-              <Route path="/posts" element={<Home posts={posts} setPosts={setPosts} />} />
-              <Route path="/posts/:postId" element={<SinglePostPage posts={posts} setPosts={setPosts} />} />
-              <Route path="/posts/newpost" element={<CreateNewPostPage posts={posts} setPosts={setPosts} />} />
+              <Route path="/-posts" element={<Home posts={posts} setPosts={setPosts} />} />
+              <Route path="/-posts/:postId" element={<SinglePostPage posts={posts} setPosts={setPosts} />} />
+              <Route path="/-posts/newpost" element={<CreateNewPostPage posts={posts} setPosts={setPosts} />} />
               <Route path="/users/:userId" element={<ProfilePage posts={posts} setPosts={setPosts} />} />
             </Routes>
           </UserContext.Provider>
