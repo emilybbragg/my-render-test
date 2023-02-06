@@ -26,7 +26,7 @@ function SinglePostPage({ setPosts }) {
   }
 
   useEffect(() => {
-    fetch(`/-posts/${postId}`)
+    fetch(`/posts/${postId}`)
       .then((r) => r.json())
       .then((p) => {
         setCurrentPost(p)
@@ -34,7 +34,7 @@ function SinglePostPage({ setPosts }) {
   }, [postId])
 
   useEffect(() => {
-    fetch(`/-posts/${postId}/likes`)
+    fetch(`/posts/${postId}/likes`)
       .then((r) => r.json())
       .then((postLikes) => {
         setPostLikes(postLikes)
@@ -42,7 +42,7 @@ function SinglePostPage({ setPosts }) {
   }, [postId])
 
   useEffect(() => {
-    fetch(`/-posts/${postId}/comments`)
+    fetch(`/posts/${postId}/comments`)
       .then((r) => r.json())
       .then((comments) => {
         setComments(comments)
@@ -50,7 +50,7 @@ function SinglePostPage({ setPosts }) {
   }, [postId])
 
   function handlePostDeleteClick(post) {
-    fetch(`/-posts/${postId}`, {
+    fetch(`/posts/${postId}`, {
       method: "DELETE",
     })
       .then((r) => {
