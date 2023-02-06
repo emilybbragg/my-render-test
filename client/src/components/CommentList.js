@@ -27,7 +27,7 @@ function CommentList({
         user_id: user.id,
         post_id: post.id,
       }
-      fetch(`/-comments`, {
+      fetch(`/comments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -52,7 +52,7 @@ function CommentList({
   }
 
   function handleCommentDeleteClick(comment) {
-    fetch(`/-comments/${comment.id}`, {
+    fetch(`/comments/${comment.id}`, {
       method: "DELETE",
     })
       .then((r) => {

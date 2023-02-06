@@ -24,7 +24,7 @@ function PostLikes({
       user_id: user.id,
       post_id: post.id,
     }
-    fetch(`/-likes`, {
+    fetch(`/likes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +48,7 @@ function PostLikes({
 
   function handlePostLikeDeleteClick(likes) {
     const userLike = likes?.find((like) => like?.user_id == user?.id)
-    fetch(`/-likes/${userLike?.id}`, {
+    fetch(`/likes/${userLike?.id}`, {
       method: "DELETE",
     })
       .then((r) => {

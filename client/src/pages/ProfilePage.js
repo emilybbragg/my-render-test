@@ -23,7 +23,7 @@ function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false)
 
   useEffect(() => {
-    fetch("/-categories")
+    fetch("/categories")
       .then((r) => r.json())
       .then(categories => {
         if (categories && categories.length > 0) {
@@ -34,7 +34,7 @@ function ProfilePage() {
 
   useEffect(() => {
     if (userId) {
-      fetch(`/-users/${userId}`)
+      fetch(`/users/${userId}`)
         .then((r) => r.json())
         .then((user) => {
           setUser(user)
@@ -58,7 +58,7 @@ function ProfilePage() {
   }, [selectedCategory])
 
   function handleUpdateUserRequest() {
-    fetch(`/-users/${userId}`, {
+    fetch(`/users/${userId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
