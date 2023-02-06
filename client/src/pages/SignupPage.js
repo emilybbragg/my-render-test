@@ -20,7 +20,7 @@ function SignupPage() {
     e.preventDefault()
     setIsLoading(true)
     setErrors([])
-    fetch("/api/signup", {
+    fetch("/-signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

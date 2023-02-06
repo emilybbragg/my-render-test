@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
-  # get 's3/direct_post'
-  # resources: s3_uploads
   default_url_options Rails.application.config.action_mailer.default_url_options
-  
-  scope(:path => '/api') do
- 
       
     resources :likes
     resources :comments
@@ -43,7 +38,5 @@ Rails.application.routes.draw do
     # Routing logic: fallback requests for React Router.
     # Leave this here to help deploy your app later!
     get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
-
-  end
     
 end

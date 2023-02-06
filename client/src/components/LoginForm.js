@@ -18,7 +18,7 @@ function LoginForm() {
   function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
-    fetch("/api/login", {
+    fetch("/-login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

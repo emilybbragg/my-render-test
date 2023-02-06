@@ -14,7 +14,7 @@ function Home({ posts, setPosts }) {
   const [filteredPosts, setFilteredPosts] = useState([])
 
   useEffect(() => {
-    fetch("/api/posts")
+    fetch("/-posts")
       .then((r) => r.json())
       .then(posts => {
         if (posts && posts.length > 0) {
@@ -24,7 +24,7 @@ function Home({ posts, setPosts }) {
   }, [])
 
   useEffect(() => {
-    fetch("/api/categories")
+    fetch("/-categories")
       .then((r) => r.json())
       .then(categories => {
         if (categories && categories.length > 0) {

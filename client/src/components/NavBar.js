@@ -15,7 +15,7 @@ function NavBar() {
   }, [])
 
   function handleLogoutClick() {
-    fetch("/api/logout", { method: "DELETE" }).then((r) => {
+    fetch("/-logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
         setUser(null);
         navigate("/")

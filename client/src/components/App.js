@@ -18,7 +18,7 @@ function App() {
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
-    fetch("/api/me").then((r) => {
+    fetch("/-me").then((r) => {
       if (r.ok) {
         r.json().then((user) => {
           if (user !== null) {
