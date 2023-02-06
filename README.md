@@ -2,7 +2,8 @@
 Plant Parenthood is a social media-style application designed for plant lovers to share and connect. This app is built with a React frontend and a Ruby-on-Rails backend, and utilizes active storage and Amazon S3 for image hosting.
 
 Running the Application
-The application can be accessed here.
+The application can be accessed [here](https://plant-parenthood-social.onrender.com).
+
 If running locally: 
 To run the backend of this application, run the following commands in a terminal: bundle install (to install dependencies) rails db:seed (to seed database) rails s (to run rails server)
 
