@@ -1,5 +1,5 @@
 //packages
-import React, { useState, useEffect, useContext } from "react"
+import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 //components
@@ -102,23 +102,42 @@ function ProfilePage() {
             </select>
           </div>
           <div className="flex min-w-[300px] p-10 gap-[10rem] w-fit overflow-y-auto h-[800px]">
-            <ul className="flex flex-wrap gap-[4rem] rounded pl-[80px] h-fit">
-              {filteredPosts?.length > 0 ? (filteredPosts?.map((post) => (
-                <>
-                  <Post
-                    key={post.id}
-                    id={post.id}
-                    post={post}
-                    user={user}
-                  />
-                </>
-              ))
-              ) :
-                <span className="flex pt-[200px] text-3xl text-green-800 opacity-60">
-                  No Posts Yet! Add one to get started.
-                </span>
-              }
-            </ul>
+            {!selectedCategory ?
+              <ul className="flex flex-wrap gap-[4rem] rounded pl-[80px] h-fit">
+                {user?.posts?.length > 0 ? (user?.posts?.map((post) => (
+                  <>
+                    <Post
+                      key={post.id}
+                      id={post.id}
+                      post={post}
+                      user={user}
+                    />
+                  </>
+                ))
+                ) :
+                  <span className="flex pt-[200px] text-3xl text-green-800 opacity-60">
+                    No Posts Yet! Add one to get started.
+                  </span>
+                }
+              </ul> :
+              <ul className="flex flex-wrap gap-[4rem] rounded pl-[80px] h-fit">
+                {filteredPosts?.length > 0 ? (filteredPosts?.map((post) => (
+                  <>
+                    <Post
+                      key={post.id}
+                      id={post.id}
+                      post={post}
+                      user={user}
+                    />
+                  </>
+                ))
+                ) :
+                  <span className="flex pt-[200px] text-3xl text-green-800 opacity-60">
+                    No Posts Yet! Add one to get started.
+                  </span>
+                }
+              </ul>
+            }
           </div>
         </div>
       </div>
