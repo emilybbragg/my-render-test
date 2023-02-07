@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     end
 
     resources :posts do
-      resources :comments, only: [:show, :index, :create]
+      resources :comments
     end
 
     resources :categories do

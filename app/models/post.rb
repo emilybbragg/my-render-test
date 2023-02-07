@@ -1,6 +1,4 @@
 class Post < ApplicationRecord
-  # include ActiveModel::Serializers::JSON
-
   has_one_attached :image
 
   belongs_to :user

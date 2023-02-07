@@ -3,14 +3,14 @@ import React, { useState, useEffect } from "react"
 import { UserContext } from "../UserContext"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 //components
-import Home from "./Home"
+import HomePage from "../pages/HomePage"
 import NavBar from "./NavBar"
 //pages
-import LoginPage from "./LoginPage"
-import SignupPage from "./SignupPage"
-import SinglePostPage from "./SinglePostPage"
-import ProfilePage from "./ProfilePage"
-import CreateNewPostPage from "./CreateNewPostPage"
+import LoginPage from "../pages/LoginPage"
+import SignupPage from "../pages/SignupPage"
+import SinglePostPage from "../pages/SinglePostPage"
+import ProfilePage from "../pages/ProfilePage"
+import CreateNewPostPage from "../pages/CreateNewPostPage"
 
 
 function App() {
@@ -41,16 +41,10 @@ function App() {
             <Routes>
               <Route path="/" element={<LoginPage />} />
               <Route path="/signup" element={<SignupPage />} />
-              {/* <Route exact path="/-posts" element={<Home posts={posts} setPosts={setPosts} />} /> */}
-              <Route path="/home" element={<Home posts={posts} setPosts={setPosts} />} />
-              {/* <Route path="/posts/:postId" element={<SinglePostPage posts={posts} setPosts={setPosts} />} /> */}
+              <Route path="/home" element={<HomePage posts={posts} setPosts={setPosts} />} />
               <Route path="/post-view/:postId" element={<SinglePostPage posts={posts} setPosts={setPosts} />} />
-
-              {/* <Route path="/posts/newpost" element={<CreateNewPostPage posts={posts} setPosts={setPosts} />} /> */}
               <Route path="/new-post" element={<CreateNewPostPage posts={posts} setPosts={setPosts} />} />
-              {/* <Route path="/users/:userId" element={<ProfilePage posts={posts} setPosts={setPosts} />} /> */}
               <Route path="/profile/:userId" element={<ProfilePage posts={posts} setPosts={setPosts} />} />
-
             </Routes>
           </UserContext.Provider>
         }

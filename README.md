@@ -19,7 +19,7 @@ Users can create a new post by selecting the "Create New Post" button at the top
 An individual post can be viewed by selecting the "View Post" button on any post from the home or profile pages. Users can edit and delete their own posts, as well as like or unlike a post by clicking the heart icon. Users can also add a comment, or view all comments for a post.
 Additionally, posts can be sorted by category on the home or profile pages by selecting an option from the dropdown.
 ## Profiles
-Users can navigate to the "My Profile" page to view their own posts and profile information; here, they can edit their bio.
+Users can navigate to the "My Profile" page to view their own posts and profile information; here, they can also sort all of their posts by category, or navigate to create a new post.
 Other users' profile pages can also be viewed by clicking their username on any post from the home page.
 
 ## Logout

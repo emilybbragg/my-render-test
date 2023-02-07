@@ -11,6 +11,7 @@ function SignupPage() {
 
   const [username, setUsername] = useState("")
   const [name, setName] = useState("")
+  const [bio, setBio] = useState("")
   const [password, setPassword] = useState("")
   const [passwordConfirmation, setPasswordConfirmation] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -29,7 +30,8 @@ function SignupPage() {
         username,
         password,
         password_confirmation: passwordConfirmation,
-        name
+        name,
+        bio
       }),
     }).then((r) => {
       setIsLoading(false);
@@ -51,6 +53,17 @@ function SignupPage() {
           autoComplete="off"
           value={name}
           onChange={(e) => setName(e.target.value)}
+        />
+      </FormField>
+      <FormField>
+        <span className="flex items-center justify-center">Bio</span>
+        <Input
+          className="!w-[300px]"
+          type="text"
+          autoComplete="off"
+          placeholder="Tell us a little bit about yourself!"
+          value={bio}
+          onChange={(e) => setBio(e.target.value)}
         />
       </FormField>
       <FormField>

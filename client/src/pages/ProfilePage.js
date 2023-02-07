@@ -3,10 +3,9 @@ import React, { useState, useEffect, useContext } from "react"
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 //components
-import Post from "./Post"
+import Post from "../components/Post"
 //styles
 import plant from "../plant.jpeg"
-import Button from "../styles/Button.js"
 
 
 function ProfilePage() {
@@ -14,7 +13,6 @@ function ProfilePage() {
   const navigate = useNavigate()
 
   const [user, setUser] = useState(null)
-  const [bio, setBio] = useState("")
   const [categories, setCategories] = useState([])
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [filteredPosts, setFilteredPosts] = useState([])
@@ -36,16 +34,9 @@ function ProfilePage() {
         .then((r) => r.json())
         .then((user) => {
           setUser(user)
-          console.log(user)
         })
     }
-    console.log(userId)
   }, [userId])
-
-  useEffect(() => {
-    setFilteredPosts(user?.posts?.reverse())
-    setBio(user?.bio)
-  }, [user])
 
   useEffect(() => {
     if (selectedCategory === "default") {
@@ -56,22 +47,6 @@ function ProfilePage() {
       setFilteredPosts(filteredPosts?.reverse())
     }
   }, [selectedCategory])
-
-  function handleUpdateUserRequest() {
-    fetch(`/users/${userId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ bio }),
-    })
-      .then((r) => r.json())
-      .then((updatedUser) => {
-        setIsEditing(false)
-      })
-  }
-
-
 
   return (
     <>
@@ -95,26 +70,8 @@ function ProfilePage() {
                   </span>
                   <hr className="w-[20rem] h-1 mx-auto my-4 bg-white border-0 rounded" />
                 </div>
-                {isEditing ?
-                  <input
-                    className="flex text-center rounded p-1 h-[100px] w-[300px] overflow-auto"
-                    placeholder="Add Your Bio Here!"
-                    value={bio}
-                    onChange={(e) => setBio(e.target.value)}
-                  /> :
-                  bio ?
-                    <span className="flex text-center">{bio}</span> :
-                    <span className="text-white">Edit your profile to add your bio here!</span>
-                }
+                <span className="flex text-center text-white">{user?.bio}</span>
               </div>
-              {userId == user?.id ?
-                <div className="flex p-3">
-                  {isEditing ?
-                    <Button onClick={handleUpdateUserRequest}>Save</Button> :
-                    <Button onClick={() => setIsEditing((isEditing) => !isEditing)}>Edit</Button>
-                  }
-                </div> : null
-              }
             </div>
           </div>
         </div>

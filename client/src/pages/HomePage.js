@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 //components
-import Post from "./Post"
+import Post from "../components/Post"
 //styling
 import plant from "../plant.jpeg"
 

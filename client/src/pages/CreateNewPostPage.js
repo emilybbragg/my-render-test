@@ -51,7 +51,6 @@ function CreateNewPostPage() {
     formData.append('user_id', user?.id)
     formData.append('caption', postCaption)
     formData.append('category_id', selectedCategory)
-    console.log(formData)
     fetch("/posts", {
       method: "POST",
       body: formData

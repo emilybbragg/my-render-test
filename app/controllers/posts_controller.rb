@@ -18,7 +18,6 @@ class PostsController < ApplicationController
 
   def create
     post = @current_user.posts.create!(post_params)
-    # post = Post.create!(post_params)
     render json: post
   end
 
