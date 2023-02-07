@@ -14,7 +14,7 @@ function ProfilePage() {
 
   const [user, setUser] = useState(null)
   const [categories, setCategories] = useState([])
-  const [selectedCategory, setSelectedCategory] = useState(null)
+  const [selectedCategory, setSelectedCategory] = useState("default")
   const [filteredPosts, setFilteredPosts] = useState([])
   const [isEditing, setIsEditing] = useState(false)
 
@@ -39,14 +39,26 @@ function ProfilePage() {
   }, [userId])
 
   useEffect(() => {
-    if (selectedCategory === "default") {
-      setFilteredPosts(user?.posts?.reverse())
+    if (user) {
+      handleSetFilteredPosts()
     }
-    else {
-      const filteredPosts = user?.posts?.filter((post) => selectedCategory == post?.category_id)
-      setFilteredPosts(filteredPosts?.reverse())
+  }, [user, selectedCategory])
+
+  const handleSetFilteredPosts = () => {
+    let userPosts
+    if (selectedCategory !== "default") {
+      userPosts = user?.posts?.filter((post) => post?.user_id == user?.id && selectedCategory == post?.category_id)
+    } else {
+      userPosts = user?.posts?.filter((post) => post?.user_id == user?.id)
     }
-  }, [selectedCategory])
+    const uniqueUserPostIds = userPosts?.map(post => post?.id).filter((value, index, self) => self.indexOf(value) === index)
+    const filteredUserPosts = []
+    for (const postId of uniqueUserPostIds) {
+      const foundPost = userPosts?.find(post => post.id === postId)
+      if (foundPost) filteredUserPosts.push(foundPost)
+    }
+    setFilteredPosts(filteredUserPosts?.reverse())
+  }
 
   return (
     <>
@@ -102,42 +114,23 @@ function ProfilePage() {
             </select>
           </div>
           <div className="flex min-w-[300px] p-10 gap-[10rem] w-fit overflow-y-auto h-[800px]">
-            {!selectedCategory ?
-              <ul className="flex flex-wrap gap-[4rem] rounded pl-[80px] h-fit">
-                {user?.posts?.length > 0 ? (user?.posts?.map((post) => (
-                  <>
-                    <Post
-                      key={post.id}
-                      id={post.id}
-                      post={post}
-                      user={user}
-                    />
-                  </>
-                ))
-                ) :
-                  <span className="flex pt-[200px] text-3xl text-green-800 opacity-60">
-                    No Posts Yet! Add one to get started.
-                  </span>
-                }
-              </ul> :
-              <ul className="flex flex-wrap gap-[4rem] rounded pl-[80px] h-fit">
-                {filteredPosts?.length > 0 ? (filteredPosts?.map((post) => (
-                  <>
-                    <Post
-                      key={post.id}
-                      id={post.id}
-                      post={post}
-                      user={user}
-                    />
-                  </>
-                ))
-                ) :
-                  <span className="flex pt-[200px] text-3xl text-green-800 opacity-60">
-                    No Posts Yet! Add one to get started.
-                  </span>
-                }
-              </ul>
-            }
+            <ul className="flex flex-wrap gap-[4rem] rounded pl-[80px] h-fit">
+              {filteredPosts?.length > 0 ? (filteredPosts?.map((post) => (
+                <>
+                  <Post
+                    key={post.id}
+                    id={post.id}
+                    post={post}
+                    user={user}
+                  />
+                </>
+              ))
+              ) :
+                <span className="flex pt-[200px] text-3xl text-green-800 opacity-60">
+                  No Posts Yet! Add one to get started.
+                </span>
+              }
+            </ul>
           </div>
         </div>
       </div>

@@ -16,12 +16,13 @@ Rails.application.routes.draw do
     end
 
     resources :posts do
-      resources :comments
+      resources :comments, only: [:show, :index, :create]
     end
 
     resources :categories do
       resources :posts
     end
+
 
     resources :users do
       resources :likes
