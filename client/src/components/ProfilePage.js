@@ -7,11 +7,9 @@ import Post from "./Post"
 //styles
 import plant from "../plant.jpeg"
 import Button from "../styles/Button.js"
-import { UserContext } from "../UserContext"
 
 
 function ProfilePage() {
-  const { loggedInUser } = useContext(UserContext)
   const { userId } = useParams()
   const navigate = useNavigate()
 
@@ -40,16 +38,11 @@ function ProfilePage() {
           setUser(user)
           console.log(user)
         })
-        .catch(e => {
-          console.log("User Error")
-          console.log(user)
-        })
     }
+    console.log(userId)
   }, [userId])
 
   useEffect(() => {
-    console.log(user)
-    console.log(user?.posts)
     setFilteredPosts(user?.posts?.reverse())
     setBio(user?.bio)
   }, [user])
@@ -77,6 +70,8 @@ function ProfilePage() {
         setIsEditing(false)
       })
   }
+
+
 
   return (
     <>
@@ -112,7 +107,7 @@ function ProfilePage() {
                     <span className="text-white">Edit your profile to add your bio here!</span>
                 }
               </div>
-              {loggedInUser?.id == user?.id ?
+              {userId == user?.id ?
                 <div className="flex p-3">
                   {isEditing ?
                     <Button onClick={handleUpdateUserRequest}>Save</Button> :
