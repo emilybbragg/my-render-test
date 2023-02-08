@@ -9,7 +9,7 @@ class PostSerializer < ActiveModel::Serializer
     has_many :likes, dependent: :destroy
   
     has_many :users, through: :likes
-    has_many :users, {:through=>:comments, :source=>"user"}
+    has_many :users, through: :comments, optional: true
   
     def image
       rails_blob_path(object.image, only_path: true) if object.image.attached?

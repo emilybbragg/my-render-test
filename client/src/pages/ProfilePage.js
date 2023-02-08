@@ -60,6 +60,18 @@ function ProfilePage() {
     setFilteredPosts(filteredUserPosts?.reverse())
   }
 
+  // useEffect(() => {
+  //   if (selectedCategory === "default") {
+  //     setFilteredPosts(user?.posts?.reverse())
+  //   }
+  //   else {
+  //     const filteredPosts = user?.posts?.filter((post) => selectedCategory == post?.category_id)
+  //     console.log(filteredPosts)
+  //     setFilteredPosts(filteredPosts?.reverse())
+  //   }
+  // }, [selectedCategory])
+
+
   return (
     <>
       <div className="flex p-[3rem]"

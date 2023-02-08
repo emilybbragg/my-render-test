@@ -1,35 +1,13 @@
 Rails.application.routes.draw do
   default_url_options Rails.application.config.action_mailer.default_url_options
       
-    resources :likes
-    resources :comments
-    resources :posts
     resources :users
     resources :categories
-
-    resources :users do
+    resources :comments
+    resources :likes
+    resources :posts do
+      resources :likes
       resources :comments
-    end
-
-    resources :users do
-      resources :posts
-    end
-
-    resources :posts do
-      resources :comments, only: [:show, :index, :create]
-    end
-
-    resources :categories do
-      resources :posts
-    end
-
-
-    resources :users do
-      resources :likes
-    end
-
-    resources :posts do
-      resources :likes
     end
 
     post "/login", to: "sessions#create"
@@ -41,3 +19,18 @@ Rails.application.routes.draw do
     get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
     
 end
+
+ # resources :categories do
+    #   resources :posts
+    # end
+
+        # resources :users, only: [:show] do
+    #   resources :comments
+    # end
+    # resources :users do
+    #   resources :likes
+    # end
+
+    # resources :users do
+    #   resources :posts
+    # end

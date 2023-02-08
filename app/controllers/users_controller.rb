@@ -10,10 +10,10 @@ class UsersController < ApplicationController
   def show
     if params[:id]
       user = User.find(params[:id])
-      render json: user, include: [:posts]
+      render json: user
     else
       user = User.find_by(id: session[:user_id])
-      render json: user, include: [:posts]
+      render json: user
     end
   end
 

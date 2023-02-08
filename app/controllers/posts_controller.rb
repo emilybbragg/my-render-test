@@ -17,7 +17,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = @current_user.posts.create!(post_params)
+    post = Post.create(post_params)
     render json: post
   end
 
@@ -37,10 +37,6 @@ class PostsController < ApplicationController
 
   def post_params
     params.permit(:caption, :user_id, :category_id, :image)
-  end
-
-   def find_post
-      Post.find(params[:id])
   end
   
 end

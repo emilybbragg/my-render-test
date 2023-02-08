@@ -57,7 +57,9 @@ function CreateNewPostPage() {
     })
       .then((r) => {
         if (r.ok) {
-          r.json().then((r) => { navigateToHome() })
+          r.json().then((r) => {
+            navigateToHome()
+          })
         } else {
           r.json().then((err) => setErrors(err.errors))
         }
