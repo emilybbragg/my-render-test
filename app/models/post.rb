@@ -10,7 +10,6 @@ class Post < ApplicationRecord
   has_many :users, through: :likes
   has_many :users, through: :comments
 
-  validates :image, presence: true
   validates :caption, presence: true
   validates :category, presence: true
 

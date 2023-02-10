@@ -55,7 +55,7 @@ function Home({ posts, setPosts }) {
             backgroundImage: `url(${plant})`,
             backgroundRepeat: 'repeat-y',
             backgroundSize: 'cover',
-            height: '750px'
+            height: '100vh'
           } :
           {
             backgroundImage: `url(${plant})`,

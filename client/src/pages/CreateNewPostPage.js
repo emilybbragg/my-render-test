@@ -46,24 +46,39 @@ function CreateNewPostPage() {
 
   function handlePostSubmit(e) {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('image', selectedImage)
-    formData.append('user_id', user?.id)
-    formData.append('caption', postCaption)
-    formData.append('category_id', selectedCategory)
-    fetch("/posts", {
-      method: "POST",
-      body: formData
-    })
-      .then((r) => {
-        if (r.ok) {
-          r.json().then((r) => {
-            navigateToHome()
-          })
-        } else {
-          r.json().then((err) => setErrors(err.errors))
-        }
+    const postErrors = []
+    if (!selectedImage) {
+      postErrors.push("Image is required")
+    }
+    if (!postCaption) {
+      postErrors.push("Caption is required")
+    }
+    if (!selectedCategory) {
+      postErrors.push("Category is required")
+    }
+
+    if (postErrors?.length > 0) {
+      setErrors(postErrors)
+    } else {
+      const formData = new FormData();
+      formData.append('image', selectedImage)
+      formData.append('user_id', user?.id)
+      formData.append('caption', postCaption)
+      formData.append('category_id', selectedCategory)
+      fetch("/posts", {
+        method: "POST",
+        body: formData
       })
+        .then((r) => {
+          if (r.ok) {
+            r.json().then((r) => {
+              navigateToHome()
+            })
+          } else {
+            r.json().then((err) => setErrors(err.errors))
+          }
+        })
+    }
   }
 
   return (
